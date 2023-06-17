@@ -16,29 +16,36 @@ function getCpuChoice() {
   return cpuChoice;
 }
 
-function playMatch(humanChoice, cpuChoice) {
-  humanChoice = humanChoice.toLowerCase();
+function playMatch(playerChoice, cpuChoice) {
+  if (playerChoice == null) {
+    console.log("You're a coward. You lose.");
+    return -1;
+  }
+  playerChoice = playerChoice.toLowerCase();
   let result;
-  if(humanChoice == cpuChoice) {
+  if(playerChoice == cpuChoice) {
     result = 0;
-    console.log(displayMessage(result, humanChoice, cpuChoice));
-  } else if(humanChoice == "rock") {
+    console.log(displayMessage(result, playerChoice, cpuChoice));
+  } else if(playerChoice == "rock") {
     result = cpuChoice == "paper" ? -1 : 1;
-    console.log(displayMessage(result, humanChoice, cpuChoice));
-  } else if(humanChoice == "paper") {
+    console.log(displayMessage(result, playerChoice, cpuChoice));
+  } else if(playerChoice == "paper") {
     result = cpuChoice == "scissors" ? -1 : 1;
-    console.log(displayMessage(result, humanChoice, cpuChoice));
-  } else if(humanChoice == "scissors") {
+    console.log(displayMessage(result, playerChoice, cpuChoice));
+  } else if(playerChoice == "scissors") {
     result = cpuChoice == "rock" ? -1 : 1;
-    console.log(displayMessage(result, humanChoice, cpuChoice));
+    console.log(displayMessage(result, playerChoice, cpuChoice));
+  } else {
+    result = -1;
+    console.log("You didn't follow the rules. You lose!");
   }
   return result;
 }
 
-function displayMessage(result, humanChoice, cpuChoice) {
+function displayMessage(result, playerChoice, cpuChoice) {
   let winner;
   let condition;
-  humanChoice = capitalizeFirst(humanChoice);
+  playerChoice = capitalizeFirst(playerChoice);
   switch (result) {
     case -1:
       winner = "You Lose! ";
@@ -53,7 +60,7 @@ function displayMessage(result, humanChoice, cpuChoice) {
       condition = " beats ";
       break;
   }
-  let message = winner + humanChoice + condition + cpuChoice + ".";
+  let message = winner + playerChoice + condition + cpuChoice + ".";
   return message
 }
 
@@ -65,8 +72,26 @@ function capitalizeFirst(word) {
   return word;
 }
 
-let playerChoice = getCpuChoice();
-let computerChoice = getCpuChoice();
-console.log(playerChoice);
-console.log(computerChoice);
-playMatch(playerChoice, computerChoice);
+function playGame(wins) {
+  let playerScore = 0;
+  let cpuScore = 0;
+  let matchResult;
+  let matches = 0;
+  while(playerScore < wins && cpuScore < wins) {
+    let playerChoice = prompt("Rock, Paper, or Scissors?");
+    let cpuChoice = getCpuChoice();
+    matchResult = playMatch(playerChoice, cpuChoice);
+    if(matchResult == 1){
+      playerScore++;
+      matches++;
+    } else if (matchResult == -1){
+      cpuScore++;
+      matches++;
+    }
+    console.log("Your score: " + playerScore);
+    console.log("My score: " + cpuScore);
+  }
+}
+
+playGame(3);
+
