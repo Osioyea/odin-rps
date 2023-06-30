@@ -1,0 +1,49 @@
+body{
+  background-color: black;
+  color: white;
+}
+
+.game{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.title{
+  font-size: 50px;
+  margin: 30px 0px;
+}
+
+.message{
+  font-size: 20px;
+}
+
+ul{
+  list-style: none;
+  padding: 0px;
+  font-size: 30px;
+  text-align: center;
+}
+
+li{
+  margin: 16px 0px;
+  border: 2px;
+  border-color: white;
+  padding: 5px 25px;
+  border-style: solid;
+}
+
+.scores{
+  display: flex;
+  flex-direction: column;
+}
+
+.holder{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 50px;
+  font-size: 30px;
+}

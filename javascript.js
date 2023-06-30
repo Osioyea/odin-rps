@@ -92,6 +92,3 @@ function playGame(wins) {
     console.log("My score: " + cpuScore);
   }
 }
-
-playGame(3);
-
