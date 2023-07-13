@@ -16,7 +16,8 @@ function getCpuChoice() {
   return cpuChoice;
 }
 
-function playMatch(playerChoice, cpuChoice) {
+function playMatch(playerChoice) {
+  let cpuChoice = getCpuChoice();
   if (playerChoice == null) {
     console.log("You're a coward. You lose.");
     return -1;
@@ -45,6 +46,7 @@ function playMatch(playerChoice, cpuChoice) {
 function displayMessage(result, playerChoice, cpuChoice) {
   let winner;
   let condition;
+  let message = document.querySelector('.message');
   playerChoice = capitalizeFirst(playerChoice);
   switch (result) {
     case -1:
@@ -60,8 +62,9 @@ function displayMessage(result, playerChoice, cpuChoice) {
       condition = " beats ";
       break;
   }
-  let message = winner + playerChoice + condition + cpuChoice + ".";
-  return message
+  let line = winner + playerChoice + condition + cpuChoice + ".";
+  message.innerHTML = line;
+  return line
 }
 
 function capitalizeFirst(word) {
@@ -72,23 +75,28 @@ function capitalizeFirst(word) {
   return word;
 }
 
-function playGame(wins) {
-  let playerScore = 0;
-  let cpuScore = 0;
+let playerScore = 0;
+let cpuScore = 0;
+let matches = 0;
+
+function playGame(playerChoice) {
   let matchResult;
-  let matches = 0;
-  while(playerScore < wins && cpuScore < wins) {
-    let playerChoice = prompt("Rock, Paper, or Scissors?");
-    let cpuChoice = getCpuChoice();
-    matchResult = playMatch(playerChoice, cpuChoice);
-    if(matchResult == 1){
-      playerScore++;
-      matches++;
-    } else if (matchResult == -1){
-      cpuScore++;
-      matches++;
-    }
-    console.log("Your score: " + playerScore);
-    console.log("My score: " + cpuScore);
+  matchResult = playMatch(playerChoice);
+  if(matchResult == 1){
+    playerScore++;
+    matches++;
+  } else if (matchResult == -1){
+    cpuScore++;
+    matches++;
   }
+  console.log("Your score: " + playerScore);
+  console.log("My score: " + cpuScore);
 }
+
+const choices = document.querySelectorAll('.choice');
+
+choices.forEach((choice) => {
+  choice.addEventListener('click', function() {
+    playGame(choice.id);
+  })
+});
