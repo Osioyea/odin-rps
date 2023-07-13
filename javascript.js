@@ -77,20 +77,26 @@ function capitalizeFirst(word) {
 
 let playerScore = 0;
 let cpuScore = 0;
-let matches = 0;
+let p1Score = document.querySelector('.playerScore');
+let p2Score = document.querySelector('.cpuScore');
 
 function playGame(playerChoice) {
   let matchResult;
-  matchResult = playMatch(playerChoice);
-  if(matchResult == 1){
-    playerScore++;
-    matches++;
-  } else if (matchResult == -1){
-    cpuScore++;
-    matches++;
+  if(playerScore < 5 && cpuScore < 5) {
+    matchResult = playMatch(playerChoice);
   }
-  console.log("Your score: " + playerScore);
-  console.log("My score: " + cpuScore);
+  if(matchResult == 1){
+    p1Score.innerHTML = ++playerScore;
+  } else if (matchResult == -1){
+    p2Score.innerHTML = ++cpuScore;
+  }
+  let message = document.querySelector('.message');
+  if(playerScore >= 5) {
+    message.innerHTML = "You win!!!!";
+  }
+  if(cpuScore >= 5) {
+    message.innerHTML = "You lose!!!!";
+  }
 }
 
 const choices = document.querySelectorAll('.choice');
